@@ -1,0 +1,14 @@
+{
+    "name": "inerce/web_articles",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+        "require": {
+        "vlucas/phpdotenv": "^5.5",
+        "nesbot/carbon": "^2.71",
+        "twig/twig": "^3.0",
+        "nikic/fast-route": "^1.3"
+    }
+}
