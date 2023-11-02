@@ -11,7 +11,7 @@ $dotenv->load();
 
 
 $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
-    $r->addRoute('GET', "/search", ["App\Controllers\SeasonController", "index"]);
+    $r->addRoute('GET', "/search", ["App\Controllers\EpisodeController", "show"]);
     $r->addRoute('GET', "/", ["App\Controllers\SeasonController", "index"]);
     $r->addRoute('GET', '/season/{id}', ["App\Controllers\SeasonController", "show"]);
    $r->addRoute('GET', '/season/episode/{id}', ["App\Controllers\EpisodeController", "show"]);

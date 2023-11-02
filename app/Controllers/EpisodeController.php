@@ -11,6 +11,9 @@ class EpisodeController
 {
     public function show(int $vars):Response
     {
+        if(strpos($_SERVER['REQUEST_URI'], "search")){
+            $search=(json_decode(file_get_contents("season.json")));
+        }
 
         $season=(json_decode(file_get_contents("season.json"))->id);
 
@@ -25,6 +28,12 @@ class EpisodeController
             $episodeIdBySeason.="E"."0".$vars;
         }else{
             $episodeIdBySeason.="E".$vars;
+        }
+
+        if(strpos($_SERVER['REQUEST_URI'], "search")){
+            $search=(json_decode(file_get_contents("search.json")));
+            $search=strtoupper($search);
+            $episodeIdBySeason=$search;
         }
         return  new Response(
             "SingleEpisode",[
