@@ -8,13 +8,24 @@ class Episode
     private string  $name;
     private string $airDate;
     private string $idBySeason;
+    private array $characters;
 
-    public function __construct(int $id,string  $name, string $airDate, string $idBySeason)
+    private ?int $countInSeason;
+
+    public function __construct(
+        int $id,
+        string  $name,
+        string $airDate,
+        string $idBySeason,
+        array $characters,
+        ?int $countInSeason=null
+    )
         {
             $this->id = $id;
             $this->name = $name;
             $this->airDate = $airDate;
             $this->idBySeason = $idBySeason;
+            if ($countInSeason!=null)$this->countInSeason=$countInSeason;
         }
 
 
@@ -37,6 +48,17 @@ class Episode
     public function getIdBySeason(): string
     {
         return $this->idBySeason;
+    }
+
+
+    public function getCountInSeason(): ?int
+    {
+        return $this->countInSeason;
+    }
+
+    public function getCharacters(): array
+    {
+        return $this->characters;
     }
 
 }

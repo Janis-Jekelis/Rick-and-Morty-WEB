@@ -9,7 +9,7 @@ use App\Response;
 class SeasonController
 {
     private string $api = "https://rickandmortyapi.com/api/episode";
-    private array $names;
+
     private array $IDs;
 
     public function __construct()
@@ -22,7 +22,7 @@ class SeasonController
             foreach ($request->results as $episode){
                 if(!(in_array(intval(substr($episode->episode, 1, 2)),$this->IDs))){
                     $this->IDs[]=intval(substr($episode->episode, 1, 2));
-                    $this->names[]="Season"." ". intval(substr($episode->episode, 1, 2));             }
+                        }
             }
 
 
@@ -34,16 +34,18 @@ class SeasonController
     {
      return  new Response(
          "AllSeasons",[
-         /// "seasons"=>$this->names,
-         "seasonids"=>$this->IDs
+                 "seasonids"=>$this->IDs,
+
                      ]
+
         );
     }
     public function show(int $vars):Response
     {
         return  new Response(
             "SingleSeason",[
-                "episodes"=>(new EpisodeCollection())->getEpisodesBySeason($vars)
+                "episodes"=>(new EpisodeCollection())->getEpisodesBySeason($vars),
+            "seasonID"=>str_replace("/season/","",$_SERVER['REQUEST_URI'])
             ]
         );
     }

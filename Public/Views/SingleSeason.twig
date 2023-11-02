@@ -1,6 +1,5 @@
-<h1 style="text-align: center;"> Rick And Morty </h1>
+<h1 style="text-align: center;">Season {{seasonID}} </h1>
 
 {% for episode in episodes %}
-    <li><a href=episode/>Episode {{episode.getname()}}</a></li>
+    <li><a href=episode/{{ episode.getCountinSeason() }}>Episode {{ episode.getName() }}</a></li>
 {% endfor %}
-<img src='https://rickandmortyapi.com/api/character/avatar/207.jpeg'>

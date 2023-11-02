@@ -11,8 +11,11 @@ $dotenv->load();
 
 
 $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
+    $r->addRoute('GET', "/search", ["App\Controllers\SeasonController", "index"]);
     $r->addRoute('GET', "/", ["App\Controllers\SeasonController", "index"]);
     $r->addRoute('GET', '/season/{id}', ["App\Controllers\SeasonController", "show"]);
+   $r->addRoute('GET', '/season/episode/{id}', ["App\Controllers\EpisodeController", "show"]);
+
 
 });
 
@@ -36,22 +39,19 @@ switch ($routeInfo[0]) {
     case FastRoute\Dispatcher::FOUND:
         $vars = $routeInfo[2];
         $handler = $routeInfo[1];
-
         [$class, $method] = [$handler[0], $handler[1]];
-
 
         if ($handler[1]=="show"){
             $response = (new $class)->$method(intval($vars["id"]));
+            if($response->getViewName()=="SingleSeason") {
+                $json = json_encode($vars);
+                file_put_contents("season.json", $json);
+            }
         }else{
             $response = (new $class)->$method();
         }
 
-
-        if($response->getViewName()=="SingleSeason"){
-            $response = (new $class)->$method(intval($vars["id"]));
-        }
-
-       echo $twig->render($response->getViewName().".twig",$response->getData());
+            echo $twig->render($response->getViewName() . ".twig", $response->getData());
 
 
         break;
