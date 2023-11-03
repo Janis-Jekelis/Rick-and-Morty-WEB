@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 namespace App\Controllers;
 
 use App\Models\Episode;
@@ -14,15 +15,15 @@ class SeasonController
 
     public function __construct()
     {
-        $this->IDs=[];
+        $this->IDs = [];
         $request = (json_decode(file_get_contents($this->api)));
         $pageCount = $request->info->pages;
         for ($i = 1; $i <= $pageCount; $i++) {
             $request = (json_decode(file_get_contents($this->api . "?page=$i")));
-            foreach ($request->results as $episode){
-                if(!(in_array(intval(substr($episode->episode, 1, 2)),$this->IDs))){
-                    $this->IDs[]=intval(substr($episode->episode, 1, 2));
-                        }
+            foreach ($request->results as $episode) {
+                if (!(in_array(intval(substr($episode->episode, 1, 2)), $this->IDs))) {
+                    $this->IDs[] = intval(substr($episode->episode, 1, 2));
+                }
             }
 
 
@@ -30,22 +31,23 @@ class SeasonController
 
     }
 
-    public function index():Response
+    public function index(): Response
     {
-     return  new Response(
-         "AllSeasons",[
-                 "seasonids"=>$this->IDs,
+        return new Response(
+            "AllSeasons", [
+                "seasonids" => $this->IDs,
 
-                     ]
+            ]
 
         );
     }
-    public function show(int $vars):Response
+
+    public function show(int $vars): Response
     {
-        return  new Response(
-            "SingleSeason",[
-                "episodes"=>(new EpisodeCollection())->getEpisodesBySeason($vars),
-            "seasonID"=>str_replace("/season/","",$_SERVER['REQUEST_URI'])
+        return new Response(
+            "SingleSeason", [
+                "episodes" => (new EpisodeCollection())->getEpisodesBySeason($vars),
+                "seasonID" => str_replace("/season/", "", $_SERVER['REQUEST_URI'])
             ]
         );
     }
