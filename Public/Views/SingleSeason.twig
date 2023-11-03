@@ -1,5 +1,5 @@
+{% include "Header/header.twig" %}
 <h1 style="text-align: center;">Season {{seasonID}} </h1>
-
 {% for episode in episodes %}
     <li><a href=episode/{{ episode.getCountinSeason() }}>Episode {{ episode.getName() }}</a></li>
 {% endfor %}

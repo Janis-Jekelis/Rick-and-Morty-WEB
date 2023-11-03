@@ -1,11 +1,11 @@
+{% include "Header/header.twig" %}
+
 <h1 style="text-align: center;"> Rick And Morty </h1>
-<form action= "search.php" method="post">
-    <input type="text" name="episodes" placeholder="Search">
-    <button type="submit"  >Search</button>
-</form>
 {% for id in seasonids %}
     <li><a href=season/{{id}}>Season {{id}}</a></li>
 {% endfor %}
+
+
 
 
 

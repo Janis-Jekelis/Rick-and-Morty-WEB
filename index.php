@@ -46,12 +46,12 @@ switch ($routeInfo[0]) {
             if($response->getViewName()=="SingleSeason") {
                 $json = json_encode($vars);
                 file_put_contents("season.json", $json);
+
             }
         }else{
             $response = (new $class)->$method();
         }
-
-            echo $twig->render($response->getViewName() . ".twig", $response->getData());
+        echo $twig->render($response->getViewName() . ".twig", $response->getData());
 
 
         break;
