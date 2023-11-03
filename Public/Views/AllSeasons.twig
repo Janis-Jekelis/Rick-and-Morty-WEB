@@ -1,7 +1,15 @@
 {% include "Header/header.twig" %}
+
+<style>
+    body {
+        background-image: url("/Public/Views/Images/1330376.png");
+        background-size: cover;
+    }
+</style>
 <h1 style="text-align: center;"> Rick And Morty </h1>
+
 {% for id in seasonids %}
-    <li><a href=season/{{id}}>Season {{id}}</a></li>
+    <li><button type="button" onclick="window.location.href='season/{{id}}';">Season {{id}}</button></li>
 {% endfor %}
 
 

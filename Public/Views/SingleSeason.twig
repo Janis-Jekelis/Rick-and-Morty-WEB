@@ -1,6 +1,17 @@
 {% include "Header/header.twig" %}
-<h1 style="text-align: center;">Season {{seasonID}} </h1>
+
+<style>
+    body {
+        background-image: url("/Public/Views/Images/SeasonsWP.jpg");
+        background-size: cover;
+    }
+</style>
+<h1 style="text-align: center; color: #00ff00;; ">Season {{seasonID}} </h1>
 {% for episode in episodes %}
-    <li><a href=episode/{{ episode.getCountinSeason() }}>Episode: {{ episode.getName() }}
-            {{ episode.getAirDate()}}</a></li>
+    <li><button type="button"
+                style="background-color: #bfff00; width:400px; height: 40px;"
+                onclick="window.location.href='episode/{{ episode.getCountInSeason() }}';">
+            Episode: {{ episode.getName() }}
+            {{ episode.getAirDate()}}
+        </button></li>
 {% endfor %}
