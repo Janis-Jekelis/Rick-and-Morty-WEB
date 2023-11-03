@@ -2,21 +2,16 @@
 declare(strict_types=1);
 require_once "vendor/autoload.php";
 
-use Carbon\Carbon;
-
 $loader = new \Twig\Loader\FilesystemLoader('Public/Views');
 $twig = new \Twig\Environment($loader);
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
-
 $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
-    $r->addRoute('GET', "/search", ["App\Controllers\EpisodeController", "show"]);
+    $r->addRoute('GET', "/search", ["App\Controllers\EpisodeController", "search"]);
     $r->addRoute('GET', "/", ["App\Controllers\SeasonController", "index"]);
     $r->addRoute('GET', '/season/{id}', ["App\Controllers\SeasonController", "show"]);
    $r->addRoute('GET', '/season/episode/{id}', ["App\Controllers\EpisodeController", "show"]);
-
-
 });
 
 $httpMethod = $_SERVER['REQUEST_METHOD'];
@@ -53,7 +48,5 @@ switch ($routeInfo[0]) {
         }
         echo $twig->render($response->getViewName() . ".twig", $response->getData());
 
-
         break;
-
 }

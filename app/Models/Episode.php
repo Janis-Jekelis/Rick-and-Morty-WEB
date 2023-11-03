@@ -1,14 +1,13 @@
 <?php
 declare(strict_types=1);
 namespace App\Models;
-
+use Carbon\Carbon;
 class Episode
 {
     private int $id;
     private string  $name;
     private string $airDate;
     private string $idBySeason;
-    private array $characters;
 
     private ?int $countInSeason;
 
@@ -40,9 +39,10 @@ class Episode
         return $this->name;
     }
 
-       public function getAirDate(): string
+       public function getAirDate():string
     {
-        return $this->airDate;
+        return (Carbon::parse($this->airDate))->toDateString();
+
     }
 
     public function getIdBySeason(): string
@@ -54,11 +54,6 @@ class Episode
     public function getCountInSeason(): ?int
     {
         return $this->countInSeason;
-    }
-
-    public function getCharacters(): array
-    {
-        return $this->characters;
     }
 
 }
